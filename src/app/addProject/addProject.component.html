@@ -1,0 +1,75 @@
+Project<input type="text">
+<input type='checkbox' id= 'abc' (change)="checked('abc')">Set start date
+
+<div *ngIf='shown'>
+  <input type="date" [value]='today' [ngModel]="today" enabled>ENter start date 
+</div>
+<div *ngIf='!shown'>
+  <input type="text" disabled>ENter start date 
+</div>
+
+
+
+Priority<div class="d-flex justify-content-center my-4">
+  <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+  <form class="range-field w-25">
+    <input class="border-0" type="range" min="0" max="100" />
+  </form>
+  <span class="font-weight-bold indigo-text ml-2 mt-1">100</span>
+</div>
+Manager<input type="text">
+<button (click)='onClick()' type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Search</button>
+<div><button>Add</button>
+<button>Delete</button></div>
+
+<div><input type="text" placeholder="Search">
+Sort By
+  <button>Start Date</button>
+  <button>End Date</button>
+  <button>Priority</button>
+<button>Completed</button>
+
+
+</div>
+
+<div>
+  Project
+  No of Tasks
+  Completed
+  Start Date
+  End Date
+  Priority
+
+  <div>
+  <button>Update</button>
+  </div>
+  <div>
+  <button>Suspend</button></div>
+
+
+<div *ngIf = 'model'>
+  <p>Hello World</p>
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor='let user of users'>
+          <tr>{{user.firstName}}</tr>
+          <tr>{{user.lastName}}</tr>
+          <tr>{{user.ID}}</tr>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

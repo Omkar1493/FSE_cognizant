@@ -1,0 +1,97 @@
+<div *ngIf= 'show'><form [formGroup]="useradd">
+  
+  <label>
+    First Name:
+    <input type="text"  formControlName="firstName" >
+    <div *ngIf="useradd.controls['firstName'].invalid && useradd.controls['firstName'].touched" class="alert alert-danger">
+            <div *ngIf="useradd.controls['firstName'].errors.required">
+            Name is required.
+          </div>
+        </div>
+  </label>
+
+  <label>
+    Last Name:
+    <input type="text" formControlName="lastName">
+     <div *ngIf="useradd.controls['lastName'].invalid && useradd.controls['lastName'].touched" class="alert alert-danger">
+            <div *ngIf="useradd.controls['lastName'].errors.required">
+            Name is required.
+          </div>
+        </div>
+  </label>
+<label>
+    ID Name:
+    <input type="text" formControlName="ID">
+     <div *ngIf="useradd.controls['ID'].invalid && useradd.controls['ID'].touched" class="alert alert-danger">
+            <div *ngIf="useradd.controls['ID'].errors.required">
+            Name is required.
+          </div>
+        </div>
+  </label>
+</form>
+<div>
+<button (click)="signup()">Add</button>
+<button>Reset</button>
+</div>
+<div>
+  <input type="text" placeholder="search">
+  Sort
+  <button>First Name</button>
+  <button>Last Name</button>
+  <button>Id</button>
+</div>
+  <div *ngFor='let user of users'>
+    <tr>{{user.firstName}}</tr>
+     <tr>{{user.lastName}}</tr>
+      <tr>{{user.ID}}</tr>
+  <button (click)=toggleview(user)
+  >Edit</button>
+  
+  <div>
+  <button>Delete</button></div>
+  </div>
+</div>
+
+<div *ngIf = "!show" >
+
+  <form [formGroup]="useradd">
+  <label>
+    First Name:
+    <input type="text"  formControlName="firstName" value="{{user1.firstName}}"  >
+    <div *ngIf="useradd.controls['firstName'].invalid && useradd.controls['firstName'].touched" class="alert alert-danger">
+            <div *ngIf="useradd.controls['firstName'].errors.required">
+            Name is required.
+          </div>
+        </div>
+  </label>
+
+  <label>
+    Last Name:
+    <input type="text" formControlName="lastName" >
+     <div *ngIf="useradd.controls['lastName'].invalid && useradd.controls['lastName'].touched" class="alert alert-danger">
+            <div *ngIf="useradd.controls['lastName'].errors.required">
+            Name is required.
+          </div>
+        </div>
+  </label>
+<label>
+    ID Name:
+    <input type="text" formControlName="ID" >
+     <div *ngIf="useradd.controls['ID'].invalid && useradd.controls['ID'].touched" class="alert alert-danger">
+            <div *ngIf="useradd.controls['ID'].errors.required">
+            Name is required.
+          </div>
+        </div>
+  </label>
+</form>
+
+<div>
+<button (click)="signup()">Update</button>
+<div *ngFor='let user of users'>
+  <div *ngIf= 'user != user1'>
+    <tr>{{user.firstName}}</tr>
+     <tr>{{user.lastName}}</tr>
+      <tr>{{user.ID}}</tr>
+</div>
+</div>
+</div>

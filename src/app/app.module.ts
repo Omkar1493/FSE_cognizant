@@ -13,6 +13,7 @@ import {DatePipe} from '@angular/common';
 import { FilterPipe} from './filter.pipe';
 import { OrderByPipe } from './order-by.pipe';
 import { UpdateProjectComponent } from './updateProject/updateProject.component';
+import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { UpdateProjectComponent } from './updateProject/updateProject.component'
     UpdateTaskComponent,
     FilterPipe ,
     OrderByPipe,
-    UpdateProjectComponent
+    UpdateProjectComponent,
+    ModalComponent
 ],
   imports: [
     BrowserModule,

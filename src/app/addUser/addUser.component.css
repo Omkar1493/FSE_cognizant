@@ -1,0 +1,55 @@
+.container {
+    margin-top: 50px;
+    max-width: 50%;
+    padding: 0px 0px;
+}
+
+input {
+    margin-left: 15px;
+    max-width: 40%;
+}
+
+.row {
+    display: flex;
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
+.alert {
+    max-height: 30px;
+    padding-top: 0px;
+    vertical-align: middle;
+    margin-left: 15px;
+    margin-bottom: 0px;
+}
+
+.button {
+    float: right;
+}
+
+.btn {
+    margin-right: 10px;
+}
+
+.reset {
+    margin-right: 200px;
+}
+
+hr {
+    margin-top: 80px;
+    width: 100%;
+    height: 1px;
+    background-color: black
+}
+.searchRow {
+    display: flex;
+    margin-top: 20px;
+}
+
+.sort {
+    margin: 0px 15px;
+}
+
+.column {
+    width: 10%;
+}

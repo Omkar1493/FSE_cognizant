@@ -13,8 +13,6 @@ const routes: Routes = [
   { path: 'addtask', component: AddTaskComponent},
   { path: 'updatetask', component: AddTaskComponent},
   { path: 'updateProject', component: UpdateProjectComponent},
-
-  // { path: '', redirectTo: '/homepage', pathMatch: 'full' },
   { path: 'addproject', component: AddProjectComponent },
   { path: 'viewtask', component: ViewTaskComponent }
 ];

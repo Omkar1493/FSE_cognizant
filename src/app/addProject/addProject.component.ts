@@ -186,13 +186,13 @@ public reset(): void {
   onClick(){
     this.model=true
       
-    this.userService.getUsers().subscribe(
-      users => {
-        this.users = users;
-        // this.filteredProducts = this.products;
-      },
-      error => this.errorMessage = <any>error
-    )
+    // this.userService.getUsers().subscribe(
+    //   users => {
+    //     this.users = users;
+    //     // this.filteredProducts = this.products;
+    //   },
+    //   error => this.errorMessage = <any>error
+    // )
 
   }
  public searchProject(): void {

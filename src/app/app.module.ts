@@ -10,6 +10,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateTaskComponent } from './updateTask/updateTask.component';
 import { HttpClientModule , HttpClient} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
+import { FilterPipe} from './filter.pipe';
+import { OrderByPipe } from './order-by.pipe';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +21,9 @@ import {DatePipe} from '@angular/common';
     AddProjectComponent,
     ViewTaskComponent,
     AddTaskComponent,
-    UpdateTaskComponent
+    UpdateTaskComponent,
+    FilterPipe ,
+    OrderByPipe
 ],
   imports: [
     BrowserModule,

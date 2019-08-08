@@ -32,13 +32,13 @@ export class AddUserComponent implements OnInit {
 
 
         
-    // this.userService.getUsers().subscribe(
-    //   users => {
-    //     this.users = users;
-    //     // this.filteredProducts = this.products;
-    //   },
-    //   error => this.errorMessage = <any>error
-    // )
+    this.userService.getUsers().subscribe(
+      users => {
+        this.users = users;
+        // this.filteredProducts = this.products;
+      },
+      error => this.errorMessage = <any>error
+    )
   }
 
    
@@ -63,6 +63,24 @@ export class AddUserComponent implements OnInit {
   toggleview(user){
     this.user1=user
     this.show=false;
+
+  }
+
+  deleteUser(ID: number) {
+        console.log(ID);
+        
+              this.userService.deleteUserById(ID).subscribe(
+            response =>  {
+             this.userService.getUsers().subscribe(
+      users => {
+        this.users = users;
+        this.router.navigate([''])
+        // this.filteredProducts = this.products;
+      },
+      error => this.errorMessage = <any>error
+    ) },
+            error => this.errorMessage = error as any
+        );
 
   }
 

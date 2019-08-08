@@ -1,11 +1,11 @@
 <div class="container">
     <form class="form" [formGroup]="viewTaskForm">
-        <div class="alignment" style="margin-top: 20px">
+        <div class="alignment" style="margin-top: 50px">
             <label class="margin">Project:</label>
             <input class="form-control form-control-sm rounded-0 margin" placeholder="Please enter project name" formControlName="project">
-            <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="searchProject()">Search Project</button>
+            <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="searchProject()">Search</button>
             <span class="space"></span>
-            <label class="margin">Sort Task by: </label>
+            <label class="margin">Sort by: </label>
             <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="sortStartDate()">Start Date</button>
             <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="sortEndDate()">End Date</button>
             <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="sortPriority()">Priority</button>

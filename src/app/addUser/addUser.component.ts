@@ -3,85 +3,117 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserAddService } from '../services/userAdd.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Users } from '../users';
 
 @Component({
-  selector: 'app-addUser',
+  selector: 'app-adduser',
   templateUrl: './addUser.component.html',
   styleUrls: ['./addUser.component.css']
 })
 export class AddUserComponent implements OnInit {
-        show: boolean = true
-        user: Users[]
-        user1: Users[];
-        useradd: FormGroup;
-        input: any
-        errorMessage: string;
-        users: Users[] = [];
-    constructor(private fb: FormBuilder,private http: HttpClient, private router: Router, private userService: UserAddService) { }
+  public users = [
+    {
+      firstName: 'abcccczzzz',
+      lastName: 'Patel',
+      ID: '12'
+    }, {
+      firstName: 'abccaaaaaa',
+      lastName: 'Bapat',
+      ID: '50'
+    }, {
+      firstName: 'xyz',
+      lastName: 'abc',
+      ID: '100'
+    }
+  ];
 
-  ngOnInit() {
-    
-        // initialize form value
-        this.useradd = this.fb.group({
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
-          ID: ['', Validators.required],
-         });
+  public useradd: FormGroup;
+  public isEdit = false;
+  public errorMessage: string;
 
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserAddService) { }
 
-
-        
-    this.userService.getUsers().subscribe(
-      users => {
-        this.users = users;
-        // this.filteredProducts = this.products;
-      },
-      error => this.errorMessage = <any>error
-    )
+  public ngOnInit(): void {
+    this.useradd = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      ID: ['' , Validators.required]
+    });
   }
 
-   
-     signup() {
-        if (this.useradd.value.firstName && this.useradd.value.lastName &&  this.useradd.value.ID) {
-          this.userService.createUser(this.useradd.value).subscribe(
-            response =>  {console.log(response.firstName);
-             this.userService.getUsers().subscribe(
-      users => {
-        this.users = users;
-        this.router.navigate([''])
-        // this.filteredProducts = this.products;
-      },
-      error => this.errorMessage = <any>error
-    ) },
-            error => this.errorMessage = error as any
-        );
-        }
-    
+  public reset(): void {
+    this.useradd.controls.firstName.setValue('');
+    this.useradd.controls.lastName.setValue('');
+    this.useradd.controls.ID.setValue('');
   }
 
-  toggleview(user){
-    this.user1=user
-    this.show=false;
+  public editData(user: any): void {
+    this.isEdit = true;
+    this.useradd.controls.firstName.setValue(user.firstName);
+    this.useradd.controls.lastName.setValue(user.lastName);
+    this.useradd.controls.ID.setValue(user.ID);
+  }
+
+  public cancel(): void {
+    this.isEdit = false;
+    this.useradd.controls.firstName.setValue('');
+    this.useradd.controls.lastName.setValue('');
+    this.useradd.controls.ID.setValue('');
+  }
+
+  public sortFirstName(): void {
+    this.users.sort((a, b) =>
+      a.firstName.toLowerCase() < b.firstName.toLowerCase() ? -1 : a.firstName.toLowerCase() > b.firstName.toLowerCase() ? 1 : 0);
+  }
+
+  public sortLastName(): void {
+    this.users.sort((a, b) =>
+      a.lastName.toLowerCase() < b.lastName.toLowerCase() ? -1 : a.lastName.toLowerCase()> b.lastName.toLowerCase() ? 1 : 0);
+  }
+
+  public sortID(): void {
+    this.users.sort((a, b) => +a.ID < +b.ID ? -1 : +a.ID > +b.ID ? 1 : 0);
+  }
+
+
+  public update(): void {
 
   }
 
-  deleteUser(ID: number) {
-        console.log(ID);
-        
-              this.userService.deleteUserById(ID).subscribe(
-            response =>  {
-             this.userService.getUsers().subscribe(
-      users => {
-        this.users = users;
-        this.router.navigate([''])
-        // this.filteredProducts = this.products;
-      },
-      error => this.errorMessage = <any>error
-    ) },
-            error => this.errorMessage = error as any
-        );
+  // public getUser(): void {
+  //   this.userService.getUsers().subscribe(users => {
+  //       this.users = users;
+  //     },
+  //     error => this.errorMessage = <any>error
+  //   );
+  // }
 
-  }
+  // public signUp(): void {
+  //   if (this.useradd.valid) {
+  //     this.userService.createUser(this.useradd.value).subscribe(response =>  {
+  //         this.userService.getUsers().subscribe(users => {
+  //         this.users = users;
+  //         this.router.navigate([''])
+  //     },
+  //     error => this.errorMessage = <any>error
+  //     );
+  //   },
+  //     error => this.errorMessage = error as any
+  //   );
+  //   }
+  // }
+
+  // public deleteUser(ID: string): void {
+  //   this.userService.deleteUserById(ID).subscribe(response =>  {
+  //     this.userService.getUsers().subscribe(
+  //     users => {
+  //       this.users = users;
+  //       this.router.navigate([''])
+  //     },
+  //     error => this.errorMessage = <any>error
+  //     );
+  //   },
+  //   error => this.errorMessage = error as any
+  //   );
+  // }
 
 }

@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
 })
 export class ViewTaskComponent implements OnInit {
 
+  public show = false;
+  public isProjectSearched = false;
+  public modalProjectData: any;
+
   public dummyTasks: any = [
     {
       id: 1,
@@ -74,6 +78,16 @@ export class ViewTaskComponent implements OnInit {
 
   public searchProject(): void {
     console.log(this.viewTaskForm.controls.project.value);
+    this.show = true;
+    this.isProjectSearched = true;
+    this.modalProjectData = [{
+      projectName: 'BOFA',
+      projectId: 1515
+    }, {
+      projectName: 'Wells Fargo',
+      projectId: 1516
+    }
+    ];
   }
 
   public sortStartDate(): void {
@@ -117,5 +131,18 @@ export class ViewTaskComponent implements OnInit {
     this.router.navigate(['/updatetask'], { queryParams: { page: 'updateTask', id: ID} });
   }
 
+  public setProjectName(data: any) {
+    this.viewTaskForm.controls.project.setValue(data);
+    this.show = false;
+    this.isProjectSearched = false;
+    this.modalProjectData = [];
+  }
+
+  public setShowFlag(data: any) {
+    this.show = data;;
+    this.isProjectSearched = false;
+    this.modalProjectData = []; 
+  }
 
 }
+

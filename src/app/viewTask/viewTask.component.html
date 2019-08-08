@@ -33,5 +33,16 @@
             <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="editTask(taskData.id)">Edit Task</button></td>
             <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="endTask()">End Task</button></td>
         </tr>
-    </table>    
+    </table>
+    <div *ngIf="show"  class="modal">
+            <div *ngIf="isProjectSearched">
+              <app-modal 
+                [data]="modalProjectData" 
+                [flag]="'isProjectSearched'"
+                (projectName)="setProjectName($event)"
+                (closFlag)="setShowFlag($event)"
+              >
+              </app-modal>
+            </div>
+    </div>    
 </div>

@@ -67,7 +67,7 @@ export class AddUserComponent implements OnInit {
 
   public sortLastName(): void {
     this.users.sort((a, b) =>
-      a.lastName.toLowerCase() < b.lastName.toLowerCase() ? -1 : a.lastName.toLowerCase()> b.lastName.toLowerCase() ? 1 : 0);
+      a.lastName.toLowerCase() < b.lastName.toLowerCase() ? -1 : a.lastName.toLowerCase() > b.lastName.toLowerCase() ? 1 : 0);
   }
 
   public sortID(): void {
@@ -102,18 +102,7 @@ export class AddUserComponent implements OnInit {
   //   }
   // }
 
-  // public deleteUser(ID: string): void {
-  //   this.userService.deleteUserById(ID).subscribe(response =>  {
-  //     this.userService.getUsers().subscribe(
-  //     users => {
-  //       this.users = users;
-  //       this.router.navigate([''])
-  //     },
-  //     error => this.errorMessage = <any>error
-  //     );
-  //   },
-  //   error => this.errorMessage = error as any
-  //   );
-  // }
-
+  public deleteUser(ID: string): void {
+    this.userService.deleteUserById(+ID).subscribe();
+  }
 }

@@ -1,0 +1,46 @@
+<button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="close()">x</button>
+<div class="container">
+    <div>
+        <h4> Select one of the following </h4>
+    </div>
+    <br>
+    <br>
+    <table *ngIf="flag == 'isProjectSearched'">
+        <tr>
+            <td class="column"><label><b>Project ID</b></label></td>
+            <td class="column"><label><b>ProjectName</b></label></td> 
+            <td class="column"><label><b></b></label></td>
+        </tr>
+        <tr *ngFor="let val of data">
+            <td class="column">{{val.projectId}}</td>
+            <td class="column">{{val.projectName}}</td> 
+            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="selectProject(val.projectName)">Select Project</button></td>
+        </tr>
+    </table>    
+
+    <table *ngIf="flag == 'isParentTaskSearched'">
+        <tr>
+            <td class="column"><label><b>Task ID</b></label></td>
+            <td class="column"><label><b>Task Name</b></label></td> 
+            <td class="column"><label><b></b></label></td>
+        </tr>
+        <tr *ngFor="let val of data">
+            <td class="column">{{val.taskId}}</td>
+            <td class="column">{{val.taskName}}</td> 
+            <td class="column"><button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="selectTask(val.taskName)">Select Task</button></td>
+        </tr>
+    </table>    
+
+    <table *ngIf="flag == 'isUserSearched'">
+        <tr>
+            <td class="column"><label><b>Employee ID</b></label></td>
+            <td class="column"><label><b>Name</b></label></td> 
+            <td class="column"><label><b></b></label></td>
+        </tr>
+        <tr *ngFor="let val of data">
+            <td class="column">{{val.employeeId}}</td>
+            <td class="column">{{val.firstName}} {{val.lastName}}</td> 
+            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="selectUser(val)">Select User</button></td>
+        </tr>
+    </table>    
+</div>

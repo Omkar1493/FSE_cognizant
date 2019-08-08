@@ -8,13 +8,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-const routes: Routes = [ 
-    { path: '', component: AddUserComponent},
-
+const routes: Routes = [
+  { path: '', component: AddUserComponent},
   { path: 'addtask', component: AddTaskComponent},
+  { path: 'updatetask', component: AddTaskComponent},
   // { path: '', redirectTo: '/homepage', pathMatch: 'full' },
   { path: 'addproject', component: AddProjectComponent },
-  { path: 'viewtask', component: ViewTaskComponent },  
+  { path: 'viewtask', component: ViewTaskComponent }
 ];
 
 @NgModule({

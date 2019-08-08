@@ -1,0 +1,37 @@
+.container {
+    max-width: 70%;
+}
+
+hr {
+    width: 100%;
+    height: 3px;
+    background-color: black
+}
+
+.alignment {
+    display: flex;
+}
+
+.margin {
+    margin-left: 10px;
+}
+
+input {
+    width: 20%;
+}
+
+.space {
+    margin-left: 3%;
+}
+
+.column {
+    width: 14.3%;
+}
+
+tr {
+    margin-bottom: 15px;
+}
+
+table {
+    width:100%;
+}

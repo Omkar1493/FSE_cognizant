@@ -34,6 +34,14 @@ createUser(UserObj): Observable<any> {
   );
 }
 
+deleteUserById(ID){
+  console.log(ID);
+  
+  return this.http.delete(this.productURL + '/' + ID).pipe(
+      tap(data => console.log('All: ' + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+}
 private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

@@ -34,13 +34,18 @@
 <button>Reset</button>
 </div>
 <div>
-  <input type="text" placeholder="search">
-  Sort
-  <button>First Name</button>
-  <button>Last Name</button>
+<input type="text" [(ngModel)]="searchText" placeholder="search text goes here">
+<!--<ul>
+  <li *ngFor="let user of users | filter : searchText">
+    {{user.firstName}}
+  </li>
+</ul> -->
+<div> sorting the </div>
+  <button >First Name</button>
+  <button  [(ngModel)]="sortbylname">Last Name</button>
   <button>Id</button>
 </div>
-  <div *ngFor='let user of users'>
+  <!--<div *ngFor='let user of users'  >
     <tr>{{user.firstName}}</tr>
      <tr>{{user.lastName}}</tr>
       <tr>{{user.ID}}</tr>
@@ -48,8 +53,21 @@
   >Edit</button>
   
   <div>
-  <button>Delete</button></div>
-  </div>
+  <button (click)='deleteUser(user.ID)' >Delete</button></div>
+  </div>-->
+    
+  <li *ngFor="let user of users | filter : searchText"  >
+     <!--| orderBy:sortbylname'-->
+    <tr>{{user.firstName}}</tr>
+     <tr>{{user.lastName}}</tr>
+      <tr>{{user.ID}}</tr>
+  <button (click)=toggleview(user)
+  >Edit</button>
+  
+  <div>
+  <button (click)='deleteUser(user.ID)' >Delete</button></div>
+  </li>
+  
 </div>
 
 <div *ngIf = "!show" >

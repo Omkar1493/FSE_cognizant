@@ -12,6 +12,14 @@ export class AddTaskComponent implements OnInit {
   public addTaskGroup: FormGroup;
   public isUpdatePage = false;
   public updateId: number;
+  public show = false;
+  public isProjectSearched = false;
+  public isParentTaskSearched = false;
+  public isUserSearched = false;
+
+  public modalProjectData: any;
+  public modalParentTaskData: any;
+  public modalUserData: any;
 
   constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute ) { }
 
@@ -78,16 +86,48 @@ export class AddTaskComponent implements OnInit {
   public searchProject(): void {
     console.log(this.addTaskGroup.controls.project.value);
     // call service and pass the value
+    this.show = true;
+    this.isProjectSearched = true;
+    this.modalProjectData = [{
+      projectName: 'BOFA',
+      projectId: 1515
+    }, {
+      projectName: 'Wells Fargo',
+      projectId: 1516
+    }
+    ];
   }
 
   public searchUser(): void {
     console.log(this.addTaskGroup.controls.user.value);
     // call service and pass the value
+    this.show = true;
+    this.isUserSearched = true;
+    this.modalUserData = [{
+      firstName: 'Shlok',
+      lastName: 'Patel',
+      employeeId: 5
+    }, {
+      firstName: 'Omkar',
+      lastName: 'Bapat',
+      employeeId: 8
+    }
+    ];
   }
 
   public searchParentTask(): void {
     console.log(this.addTaskGroup.controls.parentTask.value);
     // call service and pass the value
+    this.show = true;
+    this.isParentTaskSearched = true;
+    this.modalParentTaskData = [{
+      taskName: 'Do it',
+      taskId: 1
+    }, {
+      taskName: 'Git push',
+      taskId: 2
+    }
+    ];
   }
 
   public addTask(): void {
@@ -116,6 +156,37 @@ export class AddTaskComponent implements OnInit {
     };
     // call the service for sending the data
     console.log(updateTaskData);
+  }
+
+  public setUserName(data: any) {
+    this.addTaskGroup.controls.user.setValue(data);
+    this.show = false;
+    this.isUserSearched = false;
+    this.modalUserData = [];
+  }
+
+  public setTaskName(data: any) {
+    this.addTaskGroup.controls.parentTask.setValue(data);
+    this.show = false;
+    this.isParentTaskSearched = false;
+    this.modalParentTaskData = [];
+  }
+
+  public setProjectName(data: any) {
+    this.addTaskGroup.controls.project.setValue(data);
+    this.show = false;
+    this.isProjectSearched = false;
+    this.modalProjectData = [];
+  }
+
+  public setShowFlag(data: any) {
+    this.show = data;
+    this.isUserSearched = false;
+    this.modalUserData = [];
+    this.isProjectSearched = false;
+    this.modalProjectData = [];
+    this.isParentTaskSearched = false;
+    this.modalParentTaskData = [];
   }
 
 }

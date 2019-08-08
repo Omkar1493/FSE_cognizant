@@ -1,11 +1,19 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<h1>Project Manager</h1>
-<div>
-<button  routerLink="/addproject">Add Project</button>
-<button  routerLink="/">Add User</button>
-
-<button  routerLink="/viewtask">View Task</button>
-<button  routerLink="/addtask">Add Task</button>
+<div class="align">
+    <h1>Project Manager</h1>
+    <ul class="nav nav-pills nav-fill">
+    <li class="nav-item">
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" routerLink="/addproject" role="tab" aria-controls="pills-contact" aria-selected="false">Add Project</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" routerLink="/" role="tab" aria-controls="pills-contact" aria-selected="false">Add User</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" routerLink="/viewtask" role="tab" aria-controls="pills-contact" aria-selected="false">View Task</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" routerLink="/addtask" role="tab" aria-controls="pills-contact" aria-selected="false">Add Task</a>
+    </li>
+    </ul>
 </div>
 <router-outlet>
 </router-outlet>

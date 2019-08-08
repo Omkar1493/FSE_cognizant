@@ -1,115 +1,53 @@
-<div *ngIf= 'show'><form [formGroup]="useradd">
-  
-  <label>
-    First Name:
-    <input type="text"  formControlName="firstName" >
-    <div *ngIf="useradd.controls['firstName'].invalid && useradd.controls['firstName'].touched" class="alert alert-danger">
-            <div *ngIf="useradd.controls['firstName'].errors.required">
-            Name is required.
-          </div>
-        </div>
-  </label>
-
-  <label>
-    Last Name:
-    <input type="text" formControlName="lastName">
-     <div *ngIf="useradd.controls['lastName'].invalid && useradd.controls['lastName'].touched" class="alert alert-danger">
-            <div *ngIf="useradd.controls['lastName'].errors.required">
-            Name is required.
-          </div>
-        </div>
-  </label>
-<label>
-    ID Name:
-    <input type="text" formControlName="ID">
-     <div *ngIf="useradd.controls['ID'].invalid && useradd.controls['ID'].touched" class="alert alert-danger">
-            <div *ngIf="useradd.controls['ID'].errors.required">
-            Name is required.
-          </div>
-        </div>
-  </label>
-</form>
-<div>
-<button (click)="signup()">Add</button>
-<button>Reset</button>
-</div>
-<div>
-<input type="text" [(ngModel)]="searchText" placeholder="search text goes here">
-<!--<ul>
-  <li *ngFor="let user of users | filter : searchText">
-    {{user.firstName}}
-  </li>
-</ul> -->
-<div> sorting the </div>
-  <button >First Name</button>
-  <button  [(ngModel)]="sortbylname">Last Name</button>
-  <button>Id</button>
-</div>
-  <!--<div *ngFor='let user of users'  >
-    <tr>{{user.firstName}}</tr>
-     <tr>{{user.lastName}}</tr>
-      <tr>{{user.ID}}</tr>
-  <button (click)=toggleview(user)
-  >Edit</button>
-  
-  <div>
-  <button (click)='deleteUser(user.ID)' >Delete</button></div>
-  </div>-->
-    
-  <li *ngFor="let user of users | filter : searchText"  >
-     <!--| orderBy:sortbylname'-->
-    <tr>{{user.firstName}}</tr>
-     <tr>{{user.lastName}}</tr>
-      <tr>{{user.ID}}</tr>
-  <button (click)=toggleview(user)
-  >Edit</button>
-  
-  <div>
-  <button (click)='deleteUser(user.ID)' >Delete</button></div>
-  </li>
-  
-</div>
-
-<div *ngIf = "!show" >
-
-  <form [formGroup]="useradd">
-  <label>
-    First Name:
-    <input type="text"  formControlName="firstName" value="{{user1.firstName}}"  >
-    <div *ngIf="useradd.controls['firstName'].invalid && useradd.controls['firstName'].touched" class="alert alert-danger">
-            <div *ngIf="useradd.controls['firstName'].errors.required">
-            Name is required.
-          </div>
-        </div>
-  </label>
-
-  <label>
-    Last Name:
-    <input type="text" formControlName="lastName" >
-     <div *ngIf="useradd.controls['lastName'].invalid && useradd.controls['lastName'].touched" class="alert alert-danger">
-            <div *ngIf="useradd.controls['lastName'].errors.required">
-            Name is required.
-          </div>
-        </div>
-  </label>
-<label>
-    ID Name:
-    <input type="text" formControlName="ID" >
-     <div *ngIf="useradd.controls['ID'].invalid && useradd.controls['ID'].touched" class="alert alert-danger">
-            <div *ngIf="useradd.controls['ID'].errors.required">
-            Name is required.
-          </div>
-        </div>
-  </label>
-</form>
-
-<div>
-<button (click)="signup()">Update</button>
-<div *ngFor='let user of users'>
-  <div *ngIf= 'user != user1'>
-    <tr>{{user.firstName}}</tr>
-     <tr>{{user.lastName}}</tr>
-      <tr>{{user.ID}}</tr>
-</div>
+<div class="container">
+  <div><form [formGroup]="useradd">
+    <div class="row">
+      <label>First Name:</label>
+      <input class="form-control form-control-sm rounded-0"  type="text" placeholder="Please enter first name" formControlName="firstName" >
+      <div *ngIf="useradd.controls['firstName'].invalid && useradd.controls['firstName'].errors.required && useradd.controls['firstName'].touched" class="alert alert-danger">First Name is required.</div>
+    </div>
+    <div class="row">
+      <label>Last Name:</label>
+      <input class="form-control form-control-sm rounded-0"  placeholder="Please enter last name" type="text" formControlName="lastName">
+      <div *ngIf="useradd.controls['lastName'].invalid && useradd.controls['lastName'].errors.required && useradd.controls['lastName'].touched" class="alert alert-danger">Last Name is required</div>
+    </div>
+    <div class="row">
+      <label>Employee ID:</label>
+      <input class="form-control form-control-sm rounded-0"  type="text" placeholder="Please enter employee id" formControlName="ID">
+      <div *ngIf="useradd.controls['ID'].invalid && useradd.controls['ID'].errors.required && useradd.controls['ID'].touched" class="alert alert-danger">Employee ID is required</div>
+    </div>
+    <div  *ngIf="!isEdit" class="row button"> 
+      <button class="btn btn-primary float-right" (click)="signUp()">Add</button>
+      <button class="btn btn-primary float-right reset" (click)="reset()">Reset</button>
+    </div>
+    <div class="row button" *ngIf="isEdit"> 
+        <button class="btn btn-primary float-right" (click)="update()">Update</button>
+        <button class="btn btn-primary float-right reset" (click)="cancel()">Cancel</button>
+      </div>
+  </form>
+  <hr>
+ 
+  <div class="searchRow">
+  <input class="form-control form-control-sm rounded-0"  type="text" placeholder="Search...">
+  <div class="sort">Sort: </div>
+    <button class="btn btn-primary float-right" (click)="sortFirstName()">First Name</button>
+    <button class="btn btn-primary float-right" (click)="sortLastName()">Last Name</button>
+    <button class="btn btn-primary float-right" (click)="sortID()">Id</button>
+  </div>
+  <table>
+      <tr>
+          <td class="column"><label><b>First Name</b></label></td>
+          <td class="column"><label><b>Last Name</b></label></td> 
+          <td class="column"><label><b>ID</b></label></td>
+          <td class="column"></td>
+          <td class="column"></td>
+      </tr>
+      <tr *ngFor="let user of users">
+          <td class="column">{{user.firstName}}</td>
+          <td class="column">{{user.lastName}}</td> 
+          <td class="column">{{user.ID}}</td>
+          <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="editData(user)">Edit</button></td>
+          <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="delete(user.ID)">Delete</button></td>
+      </tr>
+  </table>  
 </div>
 </div>

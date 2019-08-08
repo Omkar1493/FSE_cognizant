@@ -1,12 +1,51 @@
-Project<button>Search</button>
-Task
-Priority<div class="slidecontainer">
-  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+<div class="container">
+  <form class="form" [formGroup]="addTaskGroup">
+    <div class="alignment" style="margin-top: 20px">
+      <label>Project:</label>
+      <input class="form-control form-control-sm rounded-0" placeholder="Please enter project name" formControlName="project">
+      <button type="submit" class="btn  btn-primary float-right" style="text-align:center" (click)="searchProject()">Search Project</button>
+    </div>
+    <div class="alignment">
+      <label>Task:</label>
+      <input class="form-control form-control-sm rounded-0" placeholder="Please enter task name" formControlName="task">
+    </div>
+    <div class="alignment">
+      <label>Parent Task:</label>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" formControlName="parentTaskCheckbox">
+      </div>
+    </div>
+    <div class="alignment">
+      <label>Priority<b>({{addTaskGroup.controls.priority.value}})</b></label>
+      <div class="slidecontainer">
+          <input type="range" min="1" max="100" value="50" class="slider" id="myRange" formControlName="priority">
+      </div>
+    </div>
+    <div class="alignment">
+      <label>Parent Task:</label>
+      <input class="form-control form-control-sm rounded-0" placeholder="Please enter parent task number" [attr.disabled]="!isParentTaskEnabled() ? '' : null" formControlName="parentTask">
+      <button type="submit" class="btn  btn-primary float-right" style="text-align:center" [disabled]="!isParentTaskEnabled()" (click)="searchParentTask()">Search Task</button>
+    </div>
+    <div class="alignment">
+      <label>Start Date:</label>
+      <input class="form-control form-control-sm rounded-0" placeholder="mm-dd-yyyy" formControlName="startDate">
+      <span style="margin-right: 15px;"></span>
+      <label>End Date:</label>
+      <input class="form-control form-control-sm rounded-0" placeholder="mm-dd-yyyy" formControlName="endDate">
+    </div>
+    <div class="alignment">
+      <label>User:</label>
+      <input class="form-control form-control-sm rounded-0" placeholder="Please enter user name" formControlName="user">
+      <button type="submit" class="btn  btn-primary  float-right" style="text-align:center" (click)="searchUser()">Search User</button>
+    </div>
+    <div>
+      <button *ngIf="!isUpdatePage" type="submit" class="btn btn-primary float-right" style="text-align:center" (click)="reset()">Reset</button>
+      <button *ngIf="!isUpdatePage" type="submit" class="btn btn-primary float-right" style="text-align:center" (click)="addTask()">Add Task</button>
+    </div>
+    <br><br>
+    <div>
+        <button *ngIf="isUpdatePage" type="submit" class="btn btn-primary float-right" style="text-align:center" (click)="cancel()">Cancel</button>
+        <button  *ngIf="isUpdatePage" type="submit" class="btn btn-primary float-right" style="text-align:center" (click)="updateTask()">Update Task</button>
+    </div>
+  </form>
 </div>
-Parent Task<button>Search</button>
-Start Date 
-End Date
-User<button>Search</button>
-
-<button>Add Task</button>
-<button>Reset</button>

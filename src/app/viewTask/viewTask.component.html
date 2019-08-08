@@ -1,5 +1,37 @@
-Project<button>Search</button>
-Sort Task by <button>Start Date</button>
-<button>End Date</button>
-<button>Priority</button>
-<button>Completed</button>
+<div class="container">
+    <form class="form" [formGroup]="viewTaskForm">
+        <div class="alignment" style="margin-top: 20px">
+            <label class="margin">Project:</label>
+            <input class="form-control form-control-sm rounded-0 margin" placeholder="Please enter project name" formControlName="project">
+            <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="searchProject()">Search Project</button>
+            <span class="space"></span>
+            <label class="margin">Sort Task by: </label>
+            <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="sortStartDate()">Start Date</button>
+            <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="sortEndDate()">End Date</button>
+            <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="sortPriority()">Priority</button>
+            <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="sortCompleted()">Completed</button>
+            <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="refresh()">Refresh</button>
+        </div>
+    </form>
+    <hr>
+    <table>
+        <tr>
+            <td class="column"><label><b>Task</b></label></td>
+            <td class="column"><label><b>Parent</b></label></td> 
+            <td class="column"><label><b>Priority</b></label></td>
+            <td class="column"><label><b>Start</b></label></td>
+            <td class="column"><label><b>End</b></label></td>
+            <td class="column"></td>
+            <td class="column"></td>
+        </tr>
+        <tr *ngFor="let taskData of dummyTasks">
+            <td class="column">{{taskData.task}}</td>
+            <td class="column">{{taskData.parent}}</td> 
+            <td class="column">{{taskData.priority}}</td>
+            <td class="column">{{taskData.startDate}}</td>
+            <td class="column">{{taskData.endDate}}</td>
+            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="editTask(taskData.id)">Edit Task</button></td>
+            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="endTask()">End Task</button></td>
+        </tr>
+    </table>    
+</div>

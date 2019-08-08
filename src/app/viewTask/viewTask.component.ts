@@ -109,7 +109,7 @@ export class ViewTaskComponent implements OnInit {
    });
   }
 
-  public endTask(): void {
+  public endProject(): void {
 
   }
 

@@ -12,6 +12,7 @@ import { HttpClientModule , HttpClient} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
 import { FilterPipe} from './filter.pipe';
 import { OrderByPipe } from './order-by.pipe';
+import { UpdateProjectComponent } from './updateProject/updateProject.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { OrderByPipe } from './order-by.pipe';
     AddTaskComponent,
     UpdateTaskComponent,
     FilterPipe ,
-    OrderByPipe
+    OrderByPipe,
+    UpdateProjectComponent
 ],
   imports: [
     BrowserModule,

@@ -11,13 +11,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./addProject.component.css']
 })
 export class AddProjectComponent implements OnInit {
-  
-  
+
   shown: boolean
   model : boolean=false
   users: Users[]
   errorMessage: string;
-
+  setpoint: any
   constructor(private datePipe: DatePipe,  private userService: UserAddService, private http: HttpClient, private router: Router,) { 
   }
   
@@ -50,6 +49,21 @@ export class AddProjectComponent implements OnInit {
     )
 
   }
+
+  //   range: any = 0;
+  // onRangeValueChange(event: any) {
+  //   console.log(1);
+    
+  //   const value = event.value;
+  //   this.range = value;
+  //   console.log(this.range);
+    
+  // }
  
+
+ putSetpoint( value: number) {
+    console.log(value);
+    this.setpoint = value;
+}
 
 }

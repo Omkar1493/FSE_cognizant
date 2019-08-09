@@ -74,8 +74,6 @@ export class AddProjectComponent implements OnInit {
 
   public taskCopy: Array<any> = [];
 
-
-
   public ngOnInit(): void {
       this.addProject = this.fb.group({
       project: [''],
@@ -120,7 +118,6 @@ export class AddProjectComponent implements OnInit {
     this.addProject.controls.manager.setValue(projectData.manager);
   }
   
-
   public reset(): void {
     this.addProject.controls.project.setValue(null);
     this.addProject.controls.priority.setValue(50);
@@ -158,6 +155,7 @@ export class AddProjectComponent implements OnInit {
     this.addProject.controls.manager.setValue(name);
     this.display!=this.display;
   }
+
   checked(value){
     const ele = document.getElementById("abc") as HTMLInputElement;
 
@@ -181,8 +179,8 @@ export class AddProjectComponent implements OnInit {
       },
       error => this.errorMessage = <any>error
     )
-
   }
+
   public searchProject(): void {
     console.log(this.addProject.controls.project.value);
   }
@@ -225,3 +223,4 @@ export class AddProjectComponent implements OnInit {
   }
 
 }
+

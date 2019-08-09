@@ -35,8 +35,12 @@ export class ModalComponent implements OnInit {
     this.close();
   }
 
-  public selectProject(projectName: string): void {
-    this.projectName.emit(projectName);
+  public selectProject(name: string, ID: number): void {
+    const projectDetails: any = {
+      projectName: name,
+      Id: +ID
+    };
+    this.projectName.emit(projectDetails);
     this.close();
   }
 

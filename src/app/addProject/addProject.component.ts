@@ -19,12 +19,13 @@ export class AddProjectComponent implements OnInit {
   shown: boolean
   model : boolean=false
   users: Users[]
+  projects: any;
   errorMessage: string;
   setpoint: any;
   display: false;
   public isUpdatePage = false;
   public updateId: number;
-
+  username: any;
   constructor(private datePipe: DatePipe,private fb: FormBuilder, private route: ActivatedRoute ,  private userService: UserAddService, private http: HttpClient, private router: Router,) { 
   }
   
@@ -82,6 +83,8 @@ export class AddProjectComponent implements OnInit {
       endDate: [''],
       priority: [''],
       manager  : [''],
+      search:['']
+
     });
 
 
@@ -151,11 +154,9 @@ export class AddProjectComponent implements OnInit {
   }
 
 
-  selectmanager(){
-    manager: this.addProject.controls.manager.value;
+  selectmanager(name){
+    this.addProject.controls.manager.setValue(name);
     this.display!=this.display;
-
-
   }
   checked(value){
     const ele = document.getElementById("abc") as HTMLInputElement;
@@ -167,16 +168,19 @@ export class AddProjectComponent implements OnInit {
       this.shown= false;
   }
 
+  public onSearchChange():void{
+    this.dummyProjects=this.taskCopy.filter(project=> project.project.includes(this.addProject.controls.search.value))
+  }
+
   onClick(){
-    this.model=true
-      
-    // this.userService.getUsers().subscribe(
-    //   users => {
-    //     this.users = users;
-    //     // this.filteredProducts = this.products;
-    //   },
-    //   error => this.errorMessage = <any>error
-    // )
+    this.model=true;
+    this.userService.getUsers(this.username).subscribe(
+      users => {
+        this.users = users;
+        // this.filteredProducts = this.products;
+      },
+      error => this.errorMessage = <any>error
+    )
 
   }
   public searchProject(): void {

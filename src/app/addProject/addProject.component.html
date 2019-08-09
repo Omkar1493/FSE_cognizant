@@ -1,4 +1,4 @@
-Project<input type="text">
+<!--Project<input type="text">
 
 <input type='checkbox' id= 'abc' (change)="checked('abc')">Set start date
 
@@ -11,25 +11,24 @@ Project<input type="text">
 
 
 
-Priority
+<!--Priority-->
 <!--<mdb-card>
   <mdb-card-body>-->
 <!--
 <input type="range" (rangeValueChange)="onRangeValueChange($event)" id="range" min="0" max="100" value="{{range}}">
 <p>Current value is {{range}}</p>-->
 
-
+<!--
 <div class="slidecontainer">
     <label>Setpoint</label>
     <p>{{setPoint}}</p>
     <div>
-         <p>5</p>
-         <p>30</p>
+       
     </div>
     <input type="range"   #inputRange min="5" max="30" value="50"  step="0.5" class="slider"
         [(ngModel)]="setPoint" (onchange)= "putSetpoint(inputRange.value)">
     <br>
-</div>
+</div>-->
 
 
   <!--</mdb-card-body>
@@ -42,7 +41,7 @@ Priority
   </form>
   <span class="font-weight-bold indigo-text ml-2 mt-1">100</span>
 </div>-->
-Manager<input type="text">
+<!--Manager<input type="text">
 <button (click)='onClick()' type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Search</button>
 <div><button>Add</button>
 <button>Delete</button></div>
@@ -98,4 +97,136 @@ Sort By
     </div>
   </div>
 </div>
+</div>-->
+
+
+
+
+<div class="container">
+  <form class="form" [formGroup]="addProject">
+    
+    <div class="alignment" style="margin-top: 20px">
+      <label>Project:</label>
+      <input class="form-control form-control-sm rounded-0" placeholder="Please enter project name" formControlName="project">
+    </div>
+    
+    <div class="alignment" style="margin-top: 20px">
+      <input type='checkbox' id= 'abc' (change)="checked('abc')">Set Start Date and End Date
+      <div *ngIf='shown'>
+        <input type="date" [value]="today"  formControlName="startDate" enabled placeholder="Start Date"> 
+        <input type="date" [value]="tomorrow" formControlName="endDate" enabled placeholder="End Date"> 
+      </div>
+      <div *ngIf='!shown'>
+       <input type="date"  [value]="today" disabled placeholder="Start Date"> 
+        <input type="date" [value]="tomorrow" disabled placeholder="End Date"> 
+      </div>
+    </div>
+
+    <div class="alignment">
+      <label>Priority<b>{{addProject.controls.priority.value}}</b></label>
+      <div class="slidecontainer">
+          <input type="range" min="1" max="100" value="50" class="slider" id="myRange" formControlName="priority">
+      </div>
+    </div>
+
+    <div class="alignment" style="margin-top: 20px">
+      <label>Manager:</label>
+      
+      <input class="form-control form-control-sm rounded-0" disabled="display" placeholder="Please enter Manager name" formControlName="manager">
+      <!--<button type="submit" class="btn  btn-primary float-right" style="text-align:center" (click)="searchUser()">Search</button>-->
+      <button (click)='onClick()' type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Search</button>
+
+
+
+    <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Select Manager</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <div class="modal-body">
+          <div class="alignment" style="margin-top: 20px">
+            <input type="text" class="form-control form-control-sm rounded-0" placeholder="Search" >
+          </div>
+          <table>
+            <tr>
+              <td class="column"><label><b>First Name</b></label></td>
+              <td class="column"><label><b>Last Name</b></label></td> 
+              <td class="column"><label><b>ID</b></label></td>
+              <td class="column"></td>
+            </tr>
+            <tr *ngFor='let user of users'>
+              <td class="column">{{user.firstName}}</td>
+              <td class="column">{{user.lastName}}</td> 
+              <td class="column">{{user.ID}}</td>
+              <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="selectmanager(user.firstName)">Assign</button></td>
+           </tr>
+        </table>    
+        </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    </div>
+
+    <div>
+      <button   *ngIf="!isUpdatePage" type="submit" class="btn btn-primary float-right" style="text-align:center" (click)="reset()">Reset</button>
+      <button *ngIf="!isUpdatePage"  type="submit" class="btn btn-primary float-right" style="text-align:center" (click)="addnewProject()">Add</button>
+    </div>
+     <br><br>
+    <div>
+        <button *ngIf="isUpdatePage" type="submit" class="btn btn-primary float-right" style="text-align:center" (click)="cancel()">Cancel</button>
+        <button  *ngIf="isUpdatePage" type="submit" class="btn btn-primary float-right" style="text-align:center" (click)="updateProject()">Update </button>
+    </div>
+
+    <hr>
+
+     <div class="alignment" style="margin-top: 20px">
+      <input type="text" class="form-control form-control-sm rounded-0" placeholder="Search" >
+    </div>
+
+    <div class="alignment" style="margin-top: 20px">
+      <label class="margin">Sort Task by: </label>
+      <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="sortStartDate()">Start Date</button>
+      <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="sortEndDate()">End Date</button>
+      <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="sortPriority()">Priority</button>
+      <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="sortCompleted()">Completed</button>
+    </div>
+
+  </form>
+
+  <hr>
+
+   <table>
+        <tr>
+            <td class="column"><label><b>Project</b></label></td>
+            <td class="column"><label><b>No of Tasks</b></label></td> 
+            <td class="column"><label><b>Priority</b></label></td>
+            <td class="column"><label><b>Start Date</b></label></td>
+            <td class="column"><label><b>End Date</b></label></td>
+            <td class="column"><label><b>End Date</b></label></td>
+            <td class="column"></td>
+            <td class="column"></td>
+        </tr>
+        <tr *ngFor="let projectData of dummyProjects">
+            <td class="column">{{projectData.project}}</td>
+            <td class="column">{{projectData.nooftasks}}</td> 
+            <td class="column">{{projectData.priority}}</td>
+            <td class="column">{{projectData.completed}}</td>
+            <td class="column">{{projectData.startDate}}</td>
+            <td class="column">{{projectData.endDate}}</td>
+
+            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="editProject(projectData)">Update</button></td>
+            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="endProject()">Suspend</button></td>
+        </tr>
+    </table>   
 </div>

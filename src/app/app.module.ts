@@ -12,35 +12,31 @@ import { HttpClientModule , HttpClient} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
 import { FilterPipe} from './filter.pipe';
 import { OrderByPipe } from './order-by.pipe';
+import { UpdateProjectComponent } from './updateProject/updateProject.component';
 import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      AddUserComponent,
-      AddProjectComponent,
-      ViewTaskComponent,
-      AddTaskComponent,
-      UpdateTaskComponent,
-      FilterPipe,
-      OrderByPipe,
-      ModalComponent
-   ],
-   imports: [
-      BrowserModule,
-      AppRoutingModule,
-      FormsModule,
-      ReactiveFormsModule,
-      HttpClientModule
-   ],
-   providers: [
-      HttpClientModule,
-      HttpClient,
-      DatePipe
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    AddUserComponent,
+    AddProjectComponent,
+    ViewTaskComponent,
+    AddTaskComponent,
+    UpdateTaskComponent,
+    FilterPipe ,
+    OrderByPipe,
+    UpdateProjectComponent,
+    ModalComponent
+],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule 
+  ],
+  providers: [HttpClientModule,HttpClient, DatePipe],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

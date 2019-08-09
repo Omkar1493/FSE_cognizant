@@ -113,12 +113,12 @@ Sort By
     <div class="alignment" style="margin-top: 20px">
       <input type='checkbox' id= 'abc' (change)="checked('abc')">Set Start Date and End Date
       <div *ngIf='shown'>
-        <input type="date" [value]='today' formControlName="startDate" enabled placeholder="Start Date"> 
-        <input type="date" [value]='today' formControlName="endDate" enabled placeholder="End Date"> 
+        <input type="date" [value]="today"  formControlName="startDate" enabled placeholder="Start Date"> 
+        <input type="date" [value]="tomorrow" formControlName="endDate" enabled placeholder="End Date"> 
       </div>
       <div *ngIf='!shown'>
-        <input type="date" disabled placeholder="Start Date">
-         <input type="date" disabled placeholder="End Date"> 
+       <input type="date"  [value]="today" disabled placeholder="Start Date"> 
+        <input type="date" [value]="tomorrow" disabled placeholder="End Date"> 
       </div>
     </div>
 
@@ -131,6 +131,7 @@ Sort By
 
     <div class="alignment" style="margin-top: 20px">
       <label>Manager:</label>
+      
       <input class="form-control form-control-sm rounded-0" disabled="display" placeholder="Please enter Manager name" formControlName="manager">
       <!--<button type="submit" class="btn  btn-primary float-right" style="text-align:center" (click)="searchUser()">Search</button>-->
       <button (click)='onClick()' type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Search</button>
@@ -224,7 +225,7 @@ Sort By
             <td class="column">{{projectData.startDate}}</td>
             <td class="column">{{projectData.endDate}}</td>
 
-            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="editProject(projectData.id)">Update</button></td>
+            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="editProject(projectData)">Update</button></td>
             <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="endProject()">Suspend</button></td>
         </tr>
     </table>   

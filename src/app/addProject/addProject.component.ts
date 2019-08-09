@@ -14,6 +14,8 @@ import { FormGroup, FormBuilder , Validators} from '@angular/forms';
 export class AddProjectComponent implements OnInit {
   
   public addProject: FormGroup;
+  public today = this.datePipe.transform(new Date(),"yyyy-MM-dd");
+  public tomorrow = this.datePipe.transform(new Date().getTime() + (1000 * 60 * 60 * 24), "yyyy-MM-dd");
   shown: boolean
   model : boolean=false
   users: Users[]
@@ -33,8 +35,9 @@ export class AddProjectComponent implements OnInit {
       priority: 1,
       nooftask: 6,
       startDate: '10/28/2010',
-      endDate:'10//10/2020',
-      completed: false
+      endDate:'10/10/2020',
+      completed: false,
+      manager: 'ramdom'
     },
     {
       id:2,
@@ -42,8 +45,9 @@ export class AddProjectComponent implements OnInit {
       priority: 3,
       nooftask: 6,
       startDate: '10/28/2015',
-      endDate:'10//10/2025',
-      completed: false
+      endDate:'10/10/2025',
+      completed: false,
+       manager: 'ramdom2'
     },
     {
       id:3,
@@ -51,8 +55,9 @@ export class AddProjectComponent implements OnInit {
       priority: 4,
       nooftask: 11,
       startDate: '10/28/2015',
-      endDate:'10//10/2021',
-      completed: true
+      endDate:'10/10/2021',
+      completed: true,
+      manager: 'ramdom3'
     },
     {
       id:3,
@@ -60,8 +65,9 @@ export class AddProjectComponent implements OnInit {
       priority: 2,
       nooftask: 5,
       startDate: '10/28/2011',
-      endDate:'10//10/2026',
-      completed: true
+      endDate:'10/10/2026',
+      completed: true,
+      manager: 'ramdom4'
     }
   ];
 
@@ -70,9 +76,6 @@ export class AddProjectComponent implements OnInit {
 
 
   public ngOnInit(): void {
-      
-      var today = this.datePipe.transform(new Date(),"dd-MM-yyyy");
-      console.log(today);
       this.addProject = this.fb.group({
       project: [''],
       startDate: [''],
@@ -94,45 +97,28 @@ export class AddProjectComponent implements OnInit {
         completed: i.completed
       });
    });
-
-
-    if (this.route.snapshot.queryParamMap.get('page') != null) {
-      this.isUpdatePage = true;
-      this.updateId =  +this.route.snapshot.queryParamMap.get('id');
-      // call the service and get values
-      this.initializeDataForUpdatedForm();
-    } else {
-     this.initializeDataForNewForm();
-   }
-
   }
-
 
   public initializeDataForNewForm(): void {
     this.addProject = this.fb.group({
-          project: [''],
-          priority: [''],
-          startDate: [''],
-          endDate: [''],
-          manager  : [''], 
-        });
+      project: [''],
+      priority: [''],
+      startDate: [''],
+      endDate: [''],
+      manager  : [''], 
+    });
   }
 
-
-
-  public initializeDataForUpdatedForm(): void {
-    this.addProject = this.fb.group({
-      project: ['prefilled', Validators.required],
-      priority: [20],
- 
-      startDate: ['20/20/2020'],
-      endDate: ['20/20/2020'],
-      manager: ['Shlok Patel', Validators.required]
-    });
+  public setDataForUpdatedForm(projectData: any): void {
+    this.addProject.controls.project.setValue(projectData.project);
+    this.addProject.controls.priority.setValue(projectData.priority);
+    this.addProject.controls.startDate.setValue(projectData.startDate);
+    this.addProject.controls.endDate.setValue(projectData.endDate);
+    this.addProject.controls.manager.setValue(projectData.manager);
   }
   
 
-public reset(): void {
+  public reset(): void {
     this.addProject.controls.project.setValue(null);
     this.addProject.controls.priority.setValue(50);
     this.addProject.controls.startDate.setValue(null);
@@ -151,8 +137,6 @@ public reset(): void {
     // call the service for sending the data
     console.log(newTaskData);
   }
-
-
 
   public updateProject(): void {
     const updateTaskData = {
@@ -195,7 +179,7 @@ public reset(): void {
     // )
 
   }
- public searchProject(): void {
+  public searchProject(): void {
     console.log(this.addProject.controls.project.value);
   }
 
@@ -223,13 +207,17 @@ public reset(): void {
  putSetpoint( value: number) {
     console.log(value);
     this.setpoint = value;
-}
+ } 
 
+  public editProject(projectData: any): void {
+    // this.router.navigate(['/updateProject'], { queryParams: { page: 'updateProject', id: ID} });
+    this.isUpdatePage = true;
+    this.setDataForUpdatedForm(projectData);
+  }
 
-
-
-  public editProject(ID: number): void {
-    this.router.navigate(['/updateProject'], { queryParams: { page: 'updateProject', id: ID} });
+  public cancel() {
+    this.isUpdatePage = false;
+    this.reset();
   }
 
 }

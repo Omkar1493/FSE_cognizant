@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TaskData } from '../dummyData/taskData';
+import { ProjectData } from '../dummyData/projectData';
+import { UsersData } from '../dummyData/usersData';
 
 @Component({
   selector: 'app-addtask',
@@ -28,7 +31,7 @@ export class AddTaskComponent implements OnInit {
       this.isUpdatePage = true;
       this.updateId =  +this.route.snapshot.queryParamMap.get('id');
       // call the service and get values
-      this.initializeDataForUpdatedForm();
+      this.initializeDataForUpdatedForm(this.updateId);
     } else {
      this.initializeDataForNewForm();
    }
@@ -47,16 +50,33 @@ export class AddTaskComponent implements OnInit {
     });
   }
 
-  public initializeDataForUpdatedForm(): void {
+  public initializeDataForUpdatedForm(Id: number): void {
+    // code to be removed after API is developed
+    // ----------------------- //
+
+    let task: any;
+    let project: any;
+    let person: any;
+    TaskData.taskArray.forEach(element => {
+      if (element.taskId === Id) { task = element; }
+    });
+    ProjectData.projectArray.forEach(element => {
+      if (element.projectId === task.projectId) { project = element; }
+    });
+    UsersData.usersArray.forEach(element => {
+      if (element.taskId === Id) { person = element; }
+    });
+
+    // ----------------------- //
     this.addTaskGroup = this.fb.group({
-      project: ['prefilled', Validators.required],
-      task: ['prefilled', Validators.required],
+      project: [ project.projectName, Validators.required],
+      task: [ task.taskName, Validators.required],
       parentTaskCheckbox: [ true ],
-      priority: [20],
-      parentTask: ['Prefilled'],
-      startDate: ['20/20/2020'],
-      endDate: ['20/20/2020'],
-      user: ['Shlok Patel', Validators.required]
+      priority: [ task.priority],
+      parentTask: [ task.parentId],
+      startDate: [ task.startDate],
+      endDate: [ task.endDate ],
+      user: [`${person.firstName} ${person.lastName}`, Validators.required]
     });
   }
 
@@ -88,14 +108,7 @@ export class AddTaskComponent implements OnInit {
     // call service and pass the value
     this.show = true;
     this.isProjectSearched = true;
-    this.modalProjectData = [{
-      projectName: 'BOFA',
-      projectId: 1515
-    }, {
-      projectName: 'Wells Fargo',
-      projectId: 1516
-    }
-    ];
+    this.modalProjectData = ProjectData.projectArray;
   }
 
   public searchUser(): void {
@@ -103,16 +116,7 @@ export class AddTaskComponent implements OnInit {
     // call service and pass the value
     this.show = true;
     this.isUserSearched = true;
-    this.modalUserData = [{
-      firstName: 'Shlok',
-      lastName: 'Patel',
-      employeeId: 5
-    }, {
-      firstName: 'Omkar',
-      lastName: 'Bapat',
-      employeeId: 8
-    }
-    ];
+    this.modalUserData = UsersData.usersArray;
   }
 
   public searchParentTask(): void {
@@ -120,14 +124,7 @@ export class AddTaskComponent implements OnInit {
     // call service and pass the value
     this.show = true;
     this.isParentTaskSearched = true;
-    this.modalParentTaskData = [{
-      taskName: 'Do it',
-      taskId: 1
-    }, {
-      taskName: 'Git push',
-      taskId: 2
-    }
-    ];
+    this.modalParentTaskData = TaskData.taskArray;
   }
 
   public addTask(): void {
@@ -173,7 +170,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   public setProjectName(data: any) {
-    this.addTaskGroup.controls.project.setValue(data);
+    this.addTaskGroup.controls.project.setValue(data.projectName);
     this.show = false;
     this.isProjectSearched = false;
     this.modalProjectData = [];

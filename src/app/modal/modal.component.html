@@ -14,7 +14,7 @@
         <tr *ngFor="let val of data">
             <td class="column">{{val.projectId}}</td>
             <td class="column">{{val.projectName}}</td> 
-            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="selectProject(val.projectName)">Select Project</button></td>
+            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="selectProject(val.projectName, val.projectId)">Select Project</button></td>
         </tr>
     </table>    
 

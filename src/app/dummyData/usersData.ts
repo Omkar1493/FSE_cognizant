@@ -6,7 +6,7 @@ export class UsersData {
             lastName: 'Doe',
             employeeId: 1000,
             projectId: 0,
-            taskId: 0
+            taskId: 3
         },
         {
             userId: 2,
@@ -30,7 +30,7 @@ export class UsersData {
             lastName: 'Puth',
             employeeId: 1004,
             projectId: 0,
-            taskId: 0
+            taskId: 4
         },
         {
             userId: 5,
@@ -38,7 +38,7 @@ export class UsersData {
             lastName: 'Jhoseph',
             employeeId: 1005,
             projectId: 2,
-            taskId: 3
+            taskId: 5
         },
         {
             userId: 6,
@@ -46,7 +46,7 @@ export class UsersData {
             lastName: 'Banner',
             employeeId: 1006,
             projectId: 0,
-            taskId: 0
+            taskId: 6
         },
         {
             userId: 7,
@@ -54,7 +54,7 @@ export class UsersData {
             lastName: 'Tucker',
             employeeId: 1007,
             projectId: 0,
-            taskId: 0
+            taskId: 7
         }
     ];
 }

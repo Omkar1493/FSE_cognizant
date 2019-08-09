@@ -33,9 +33,6 @@ export class AddUserComponent implements OnInit {
     this.useradd.controls.firstName.setValue('');
     this.useradd.controls.lastName.setValue('');
     this.useradd.controls.employeeId.setValue('');
-
-    // TOBE: remove this when API in action
-    this.users = UsersData.usersArray;
   }
 
   public editData(user: any): void {

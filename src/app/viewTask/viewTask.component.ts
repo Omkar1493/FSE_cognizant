@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ProjectData } from '../dummyData/projectData';
+import { TaskData } from '../dummyData/taskData';
 
 @Component({
   selector: 'app-viewtask',
@@ -13,46 +15,7 @@ export class ViewTaskComponent implements OnInit {
   public isProjectSearched = false;
   public modalProjectData: any;
 
-  public dummyTasks: any = [
-    {
-      id: 1,
-      task: 'task1',
-      parent: 'parent1',
-      priority: 1,
-      startDate: '10/31/2010',
-      endDate: '10/11/2020',
-      completed: false
-    },
-    {
-      id: 2,
-      task: 'task2',
-      parent: 'parent2',
-      priority: 2,
-      startDate: '10/28/2010',
-      endDate: '10//10/2020',
-      completed: false
-    },
-    {
-      id: 3,
-      task: 'task3',
-      parent: 'parent3',
-      priority: 4,
-      startDate: '12/12/2014',
-      endDate: '11/10/2050',
-      completed: true
-    },
-    {
-      id: 4,
-      task: 'task4',
-      parent: 'parent4',
-      priority: 3,
-      startDate: '05/05/2015',
-      endDate: '11/10/2020',
-      completed: true
-    }
-  ];
-
-  public taskCopy: Array<any> = [];
+  public dummyTasks: Array<any> = TaskData.taskArray;
 
   public viewTaskForm: FormGroup;
 
@@ -62,32 +25,14 @@ export class ViewTaskComponent implements OnInit {
     this.viewTaskForm = this.fb.group({
       project: ['']
     });
-    this.dummyTasks.forEach( i => {
-      this.taskCopy.push(
-      {
-        id: i.id,
-        task: i.task,
-        parent: i.parent,
-        priority: i.priority,
-        startDate: i.startDate,
-        endDate: i.endDate,
-        completed: i.completed
-      });
-   });
   }
 
   public searchProject(): void {
     console.log(this.viewTaskForm.controls.project.value);
+    // call service to backend for data
     this.show = true;
     this.isProjectSearched = true;
-    this.modalProjectData = [{
-      projectName: 'BOFA',
-      projectId: 1515
-    }, {
-      projectName: 'Wells Fargo',
-      projectId: 1516
-    }
-    ];
+    this.modalProjectData = ProjectData.projectArray;
   }
 
   public sortStartDate(): void {
@@ -104,27 +49,16 @@ export class ViewTaskComponent implements OnInit {
   }
 
   public sortCompleted(): void {
-    this.dummyTasks = this.dummyTasks.filter(data => data.completed === true);
+    this.dummyTasks = this.dummyTasks.filter(data => data.status === true);
   }
 
   public refresh(): void {
     this.dummyTasks = [];
-    this.taskCopy.forEach( i => {
-      this.dummyTasks.push(
-      {
-        id: i.id,
-        task: i.task,
-        parent: i.parent,
-        priority: i.priority,
-        startDate: i.startDate,
-        endDate: i.endDate,
-        completed: i.completed
-      });
-   });
+    this.dummyTasks = TaskData.taskArray;
+    this.viewTaskForm.controls.project.setValue('');
   }
 
   public endProject(): void {
-
   }
 
   public editTask(ID: number): void {
@@ -132,16 +66,22 @@ export class ViewTaskComponent implements OnInit {
   }
 
   public setProjectName(data: any) {
-    this.viewTaskForm.controls.project.setValue(data);
+    this.viewTaskForm.controls.project.setValue(data.projectName);
     this.show = false;
     this.isProjectSearched = false;
     this.modalProjectData = [];
+    this.dummyTasks = [];
+    TaskData.taskArray.forEach(element => {
+      if (element.projectId === data.Id) {
+        this.dummyTasks.push(element);
+      }
+    });
   }
 
   public setShowFlag(data: any) {
-    this.show = data;;
+    this.show = data;
     this.isProjectSearched = false;
-    this.modalProjectData = []; 
+    this.modalProjectData = [];
   }
 
 }

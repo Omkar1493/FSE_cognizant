@@ -25,12 +25,12 @@
             <td class="column"></td>
         </tr>
         <tr *ngFor="let taskData of dummyTasks">
-            <td class="column">{{taskData.task}}</td>
-            <td class="column">{{taskData.parent}}</td> 
+            <td class="column">{{taskData.taskName}}</td>
+            <td class="column">{{taskData.parentId}}</td> 
             <td class="column">{{taskData.priority}}</td>
             <td class="column">{{taskData.startDate}}</td>
             <td class="column">{{taskData.endDate}}</td>
-            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="editTask(taskData.id)">Edit Task</button></td>
+            <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="editTask(taskData.taskId)">Edit Task</button></td>
             <td class="column">  <button type="submit" class="btn  btn-primary float-right margin" style="text-align:center" (click)="endTask()">End Task</button></td>
         </tr>
     </table>

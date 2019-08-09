@@ -47,4 +47,6 @@ table {
     background-color: #ecf0f1;
     border-radius: 5px;
     border: 1px solid cornflowerblue;
+    height: auto;
+    overflow-y: auto;
   }

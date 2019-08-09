@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserAddService } from '../services/userAdd.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UsersData } from '../dummyData/usersData';
 
 @Component({
   selector: 'app-adduser',
@@ -10,25 +11,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./addUser.component.css']
 })
 export class AddUserComponent implements OnInit {
-  public users = [
-    {
-      firstName: 'abcccczzzz',
-      lastName: 'Patel',
-      ID: '12'
-    }, {
-      firstName: 'abccaaaaaa',
-      lastName: 'Bapat',
-      ID: '50'
-    }, {
-      firstName: 'xyz',
-      lastName: 'abc',
-      ID: '100'
-    }
-  ];
+  public users: Array<any> = UsersData.usersArray;
 
   public useradd: FormGroup;
   public isEdit = false;
   public errorMessage: string;
+  public userIdCurrentlyInEdit: number;
 
   constructor(private fb: FormBuilder, private router: Router, private userService: UserAddService) { }
 
@@ -36,28 +24,33 @@ export class AddUserComponent implements OnInit {
     this.useradd = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      ID: ['' , Validators.required]
+      employeeId: ['' , Validators.required],
+      search: ['']
     });
   }
 
   public reset(): void {
     this.useradd.controls.firstName.setValue('');
     this.useradd.controls.lastName.setValue('');
-    this.useradd.controls.ID.setValue('');
+    this.useradd.controls.employeeId.setValue('');
+
+    // TOBE: remove this when API in action
+    this.users = UsersData.usersArray;
   }
 
   public editData(user: any): void {
     this.isEdit = true;
+    this.userIdCurrentlyInEdit = user.userId;
     this.useradd.controls.firstName.setValue(user.firstName);
     this.useradd.controls.lastName.setValue(user.lastName);
-    this.useradd.controls.ID.setValue(user.ID);
+    this.useradd.controls.employeeId.setValue(user.employeeId);
   }
 
   public cancel(): void {
     this.isEdit = false;
     this.useradd.controls.firstName.setValue('');
     this.useradd.controls.lastName.setValue('');
-    this.useradd.controls.ID.setValue('');
+    this.useradd.controls.employeeId.setValue('');
   }
 
   public sortFirstName(): void {
@@ -70,13 +63,47 @@ export class AddUserComponent implements OnInit {
       a.lastName.toLowerCase() < b.lastName.toLowerCase() ? -1 : a.lastName.toLowerCase() > b.lastName.toLowerCase() ? 1 : 0);
   }
 
-  public sortID(): void {
-    this.users.sort((a, b) => +a.ID < +b.ID ? -1 : +a.ID > +b.ID ? 1 : 0);
+  public sortEmployeeId(): void {
+    this.users.sort((a, b) => +a.employeeId < +b.employeeId ? -1 : +a.employeeId > +b.employeeId ? 1 : 0);
   }
 
-
   public update(): void {
+    const editedUserData = this.users.forEach(user => {
+      if (user.userId === this.userIdCurrentlyInEdit) {
+        user.firstName = this.useradd.controls.firstName.value;
+        user.lastName = this.useradd.controls.lastName.value;
+        user.employeeId = this.useradd.controls.employeeId.value;
+        user.projectId = 0;
+        user.taskId = 0;
+      }
+    });
+    alert('user updated');
+    this.reset();
+  }
 
+  public searchOnChange(): void {
+      this.users = UsersData.usersArray.filter(user => user.firstName.includes(this.useradd.controls.search.value));
+  }
+
+  public signUp(): void {
+    const id: number = UsersData.usersArray.length + 2;
+    const newUser: any = {
+      userId: id,
+      firstName: this.useradd.controls.firstName.value,
+      lastName: this.useradd.controls.lastName.value ,
+      employeeId: this.useradd.controls.employeeId.value,
+      projectId: 0,
+      taskId: 0
+    };
+    if (this.useradd.valid) {
+      UsersData.usersArray.push(newUser);
+      alert('User Added');
+      this.reset();
+    }
+  }
+
+  public deleteUser(employeeId: string): void {
+    // this.userService.deleteUserById(+employeeId).subscribe();
   }
 
   // public getUser(): void {
@@ -86,23 +113,4 @@ export class AddUserComponent implements OnInit {
   //     error => this.errorMessage = <any>error
   //   );
   // }
-
-  // public signUp(): void {
-  //   if (this.useradd.valid) {
-  //     this.userService.createUser(this.useradd.value).subscribe(response =>  {
-  //         this.userService.getUsers().subscribe(users => {
-  //         this.users = users;
-  //         this.router.navigate([''])
-  //     },
-  //     error => this.errorMessage = <any>error
-  //     );
-  //   },
-  //     error => this.errorMessage = error as any
-  //   );
-  //   }
-  // }
-
-  public deleteUser(ID: string): void {
-    this.userService.deleteUserById(+ID).subscribe();
-  }
 }
